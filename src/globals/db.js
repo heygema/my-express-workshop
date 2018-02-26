@@ -9,6 +9,12 @@ export type Product = {
   photo: string,
 };
 
+export type ProductEditInput = {
+  name: string,
+  price: number,
+  photo: string,
+};
+
 let products: Products = [
   {id: '1', name: 'banana', price: 2000, photo: '...'},
   {id: '2', name: 'apple', price: 5000, photo: '...'},
@@ -34,6 +40,17 @@ function createDB() {
     },
     addItem: (item: Product) => {
       setState([...state, item]);
+    },
+    editItem: (id: string, data: ProductEditInput) => {
+      let removedState = state.filter((i) => i.id !== id);
+      let newItem = {
+        id,
+        name: data.name,
+        price: data.price,
+        photo: data.photo,
+      };
+      let newState = [...removedState, newItem];
+      setState(newState);
     },
     removeItem: (id: string) => {
       let newState = state.filter((i) => i.id !== id);
