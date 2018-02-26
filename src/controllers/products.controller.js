@@ -59,6 +59,28 @@ export function addProduct(req: AddProductRequest, res: $Response) {
   }
 }
 
+export function editProduct(req: $Request, res: $Response) {
+  let {id} = req.params;
+  let item = db.getItem(id);
+  if (typeof item !== 'undefined') {
+    let {name, price, photo} = req.body;
+    let newItem = {
+      name: name ? name : item.name,
+      price: price ? price : item.price,
+      photo: photo ? photo : item.photo,
+    };
+    db.editItem(id, newItem);
+    res.status(200).json({
+      data: db.getItem(id),
+      message: 'item has successfully been updated',
+    });
+  } else {
+    res.status(404).json({
+      message: 'item not found',
+    });
+  }
+}
+
 export function getProduct(req: GetProductRequest, res: GetProductResponse) {
   let {id} = req.params;
   let result = db.getItem(id);
