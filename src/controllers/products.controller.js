@@ -2,7 +2,6 @@
 import type {$Request, $Response} from 'express';
 import createDB from '../globals/db';
 import type {Product} from '../globals/db';
-let db = createDB();
 import uniqid from 'uniqid';
 
 type GetProductResponse = {
@@ -21,6 +20,8 @@ type AddProductRequest = {
     price: number,
   },
 } & $Request;
+
+let db = createDB();
 
 export function getAllProducts(req: $Request, res: $Response) {
   let data = db.getState();
