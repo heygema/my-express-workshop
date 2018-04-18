@@ -28,16 +28,7 @@ function createDB() {
   }
   return {
     getState: () => state,
-    getItem: (id: string) => {
-      let result;
-      console.log(result);
-      for (let item of state) {
-        if (item.id === id) {
-          result = item;
-        }
-      }
-      return result;
-    },
+    getItem: (id: string) => state.find((item) => item.id === id),
     addItem: (item: Product) => {
       setState([...state, item]);
     },
